@@ -39,13 +39,13 @@ const projects = [
     }
 ];
 
-const Projects = ({ onViewDemo }) => {
+const Projects = ({ onViewDemo, isMobile }) => {
     return (
         <section id="projects" className="py-24 px-6 relative">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         className="text-5xl md:text-7xl font-black mb-6"
@@ -67,7 +67,7 @@ const Projects = ({ onViewDemo }) => {
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
@@ -78,12 +78,12 @@ const Projects = ({ onViewDemo }) => {
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75 group-hover:brightness-100"
+                                    className={`w-full h-full object-cover transition-transform duration-700 brightness-75 group-hover:brightness-100 ${!isMobile ? 'group-hover:scale-110' : ''}`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background-deep via-transparent to-transparent opacity-60" />
 
                                 {/* Links Over Image */}
-                                <div className="absolute top-4 right-4 flex gap-2 translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                <div className={`absolute top-4 right-4 flex gap-2 transition-all duration-300 ${!isMobile ? 'translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100' : 'opacity-100'}`}>
                                     <a href={project.github} className="p-2 glass-card bg-white/10 hover:bg-brand-orange hover:text-background-deep transition-all">
                                         <Github size={18} />
                                     </a>
@@ -103,7 +103,7 @@ const Projects = ({ onViewDemo }) => {
                             </div>
 
                             {/* Project Content */}
-                            <div className="p-8 flex-grow flex flex-col translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                            <div className={`p-8 flex-grow flex flex-col transition-transform duration-500 ${!isMobile ? 'translate-y-2 group-hover:translate-y-0' : ''}`}>
                                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-brand-orange transition-colors">
                                     {project.title}
                                 </h3>

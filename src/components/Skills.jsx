@@ -131,13 +131,13 @@ const skills = [
 // Need to import Layers specifically for Next.js
 import { Layers } from 'lucide-react';
 
-const Skills = () => {
+const Skills = ({ isMobile }) => {
     return (
         <section id="skills" className="py-24 px-6 relative overflow-hidden bg-[#02040a]">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="text-5xl md:text-7xl font-black mb-6"
@@ -159,20 +159,22 @@ const Skills = () => {
                     {skills.map((skill, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.95 }}
+                            initial={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
-                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                            whileHover={isMobile ? {} : { y: -8, transition: { duration: 0.3 } }}
                             className="glass-card p-6 border-white/5 relative group overflow-hidden bg-slate-900/40"
                         >
-                            {/* Individual Color Glow on Hover */}
-                            <div
-                                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
-                                style={{
-                                    background: `radial-gradient(circle at 50% 50%, ${skill.color}33 0%, transparent 70%)`
-                                }}
-                            />
+                            {/* Individual Color Glow on Hover - Disable for mobile */}
+                            {!isMobile && (
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
+                                    style={{
+                                        background: `radial-gradient(circle at 50% 50%, ${skill.color}33 0%, transparent 70%)`
+                                    }}
+                                />
+                            )}
 
                             <div className="flex justify-between items-start mb-6">
                                 {/* Icon with colored background */}
@@ -200,15 +202,17 @@ const Skills = () => {
                                         className="h-full relative"
                                         style={{ backgroundColor: skill.color }}
                                     >
-                                        {/* Progress Bar Glow */}
-                                        <div
-                                            className="absolute inset-0 blur-[4px] opacity-100"
-                                            style={{ backgroundColor: skill.color }}
-                                        />
+                                        {/* Progress Bar Glow - Disable for mobile */}
+                                        {!isMobile && (
+                                            <div
+                                                className="absolute inset-0 blur-[4px] opacity-100"
+                                                style={{ backgroundColor: skill.color }}
+                                            />
+                                        )}
                                     </motion.div>
                                 </div>
-                                <div className="flex justify-end pr-1 transition-transform group-hover:translate-x-1">
-                                    <span className="text-[10px] font-black text-white/20 group-hover:text-white/40 transition-colors">
+                                <div className={`flex justify-end pr-1 transition-transform ${!isMobile ? 'group-hover:translate-x-1' : ''}`}>
+                                    <span className={`text-[10px] font-black transition-colors ${!isMobile ? 'text-white/20 group-hover:text-white/40' : 'text-white/40'}`}>
                                         {skill.level}
                                     </span>
                                 </div>

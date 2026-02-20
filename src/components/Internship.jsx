@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Database, Globe, Layers, Server } from 'lucide-react';
 
-const Internship = () => {
+const Internship = ({ isMobile }) => {
     const techLogos = [
         { icon: Globe, name: "React", color: "text-brand-orange" },
         { icon: Server, name: "Node.js", color: "text-brand-amber" },
@@ -13,12 +13,14 @@ const Internship = () => {
     return (
         <section id="internship" className="py-24 px-6 relative overflow-hidden">
             {/* Background decorative elements */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/5 blur-[120px] rounded-full -z-10" />
+            {!isMobile && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/5 blur-[120px] rounded-full -z-10" />
+            )}
 
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="text-5xl md:text-7xl font-black mb-6"
@@ -36,7 +38,7 @@ const Internship = () => {
                 <div className="grid lg:grid-cols-5 gap-12 items-center">
                     {/* Left side: Content */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="lg:col-span-3 space-y-8"
@@ -66,7 +68,7 @@ const Internship = () => {
                                 ].map((item, i) => (
                                     <motion.li
                                         key={i}
-                                        initial={{ opacity: 0, x: -10 }}
+                                        initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -10 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.1 }}
@@ -85,21 +87,23 @@ const Internship = () => {
                         {techLogos.map((tech, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                initial={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.8, y: 20 }}
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1, type: "spring", bounce: 0.4 }}
-                                whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 5 : -5 }}
+                                whileHover={isMobile ? {} : { scale: 1.05, rotate: index % 2 === 0 ? 5 : -5 }}
                                 className="glass-card p-8 border-white/5 flex flex-col items-center justify-center text-center group hover:border-brand-orange/30 transition-all"
                             >
                                 <div className={`w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center mb-4 ${tech.color} group-hover:scale-110 group-hover:bg-white/10 transition-all shadow-xl`}>
                                     <tech.icon size={32} />
                                 </div>
-                                <span className="text-sm font-black uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+                                <span className={`text-sm font-black uppercase tracking-widest transition-colors ${!isMobile ? 'text-white/50 group-hover:text-white' : 'text-white/70'}`}>
                                     {tech.name}
                                 </span>
-                                {/* Glow in background */}
-                                <div className={`absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-${tech.color.split('-')[1] || 'white'}/5 opacity-0 group-hover:opacity-100 transition-opacity`} />
+                                {/* Glow in background - Disable for mobile */}
+                                {!isMobile && (
+                                    <div className={`absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-${tech.color.split('-')[1] || 'white'}/5 opacity-0 group-hover:opacity-100 transition-opacity`} />
+                                )}
                             </motion.div>
                         ))}
                     </div>

@@ -25,13 +25,13 @@ const features = [
     }
 ];
 
-const About = () => {
+const About = ({ isMobile }) => {
     return (
         <section id="about" className="py-24 px-6 relative bg-slate-900/20">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="text-5xl md:text-7xl font-black mb-6"
@@ -52,7 +52,7 @@ const About = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* Main Content Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="lg:col-span-2 glass-card p-12 border-white/5 flex flex-col justify-center"
@@ -73,11 +73,11 @@ const About = () => {
                         {features.map((feature, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                whileHover={{ scale: 1.02 }}
+                                whileHover={isMobile ? {} : { scale: 1.02 }}
                                 className="glass-card p-6 border-white/5 flex items-center gap-6 group hover:border-brand-orange/30 transition-all"
                             >
                                 <div className="w-12 h-12 rounded-xl bg-brand-orange/10 flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">

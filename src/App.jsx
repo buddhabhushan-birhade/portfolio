@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import Lenis from 'lenis';
 
 // Components
 import Navbar from './components/Navbar';
@@ -16,6 +17,38 @@ import BlockGame from './components/BlockGame';
 function App() {
     const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
     const [isBlockGameOpen, setIsBlockGameOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        // Detect mobile
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        // Initialize Lenis for smooth scrolling
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 1.1,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+            lenis.destroy();
+        };
+    }, []);
 
     const handleViewDemo = (demoKey) => {
         if (demoKey === 'calculator') setIsCalculatorOpen(true);
@@ -26,37 +59,41 @@ function App() {
         <div className="min-h-screen relative text-white selection:bg-brand-orange/30">
             {/* Dynamic Background */}
             <div className="fixed inset-0 -z-10 bg-background-deep overflow-hidden">
-                {/* Animated Blobs */}
-                <motion.div
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 1.2, 1]
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-brand-orange/5 blur-[150px] rounded-full"
-                />
-                <motion.div
-                    animate={{
-                        x: [0, -80, 0],
-                        y: [0, 100, 0],
-                        scale: [1, 1.3, 1]
-                    }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-orange/5 blur-[150px] rounded-full"
-                />
+                {!isMobile && (
+                    <>
+                        {/* Animated Blobs - Only for Desktop for performance */}
+                        <motion.div
+                            animate={{
+                                x: [0, 100, 0],
+                                y: [0, 50, 0],
+                                scale: [1, 1.2, 1]
+                            }}
+                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                            className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-brand-orange/5 blur-[150px] rounded-full"
+                        />
+                        <motion.div
+                            animate={{
+                                x: [0, -80, 0],
+                                y: [0, 100, 0],
+                                scale: [1, 1.3, 1]
+                            }}
+                            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                            className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-orange/5 blur-[150px] rounded-full"
+                        />
+                    </>
+                )}
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none" />
             </div>
 
             <Navbar />
 
             <main>
-                <Hero />
-                <About />
-                <Skills />
-                <Projects onViewDemo={handleViewDemo} />
-                <Internship />
-                <Contact />
+                <Hero isMobile={isMobile} />
+                <About isMobile={isMobile} />
+                <Skills isMobile={isMobile} />
+                <Projects onViewDemo={handleViewDemo} isMobile={isMobile} />
+                <Internship isMobile={isMobile} />
+                <Contact isMobile={isMobile} />
             </main>
 
             <AnimatePresence>
