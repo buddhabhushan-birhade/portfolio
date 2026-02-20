@@ -34,7 +34,7 @@ const projects = [
         image: "/block game.png",
         tech: ["React", "Framer Motion", "Game Logic"],
         github: "https://github.com/buddhabhushan-birhade/block-game",
-        live: "https://block-game-topaz.vercel.app",
+        live: "https://block-game-delta.vercel.app/",
 
     }
 ];
