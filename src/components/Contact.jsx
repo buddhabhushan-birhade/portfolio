@@ -4,7 +4,7 @@ import { Mail, Linkedin, Github, Send } from 'lucide-react';
 
 const Contact = () => {
     return (
-        <section id="contact" className="py-24 px-6 relative overflow-hidden">
+        <section id="contact" className="py-24 px-6 relative overflow-hidden premium-scroll-fix">
             <div className="max-w-4xl mx-auto relative z-10">
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
@@ -22,7 +22,7 @@ const Contact = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="space-y-8"
+                        className="space-y-8 gpu-accel"
                     >
                         <h3 className="text-2xl font-bold text-white mb-4">Let's build something <span className="neon-text italic">amazing</span> together.</h3>
                         <p className="text-white/60 leading-relaxed">
@@ -49,7 +49,7 @@ const Contact = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="glass-card p-8 border-white/5 space-y-4 shadow-2xl shadow-brand-cyan/5"
+                        className="glass-card p-8 border-white/5 space-y-4 shadow-2xl shadow-brand-cyan/5 gpu-accel"
                         onSubmit={(e) => e.preventDefault()}
                     >
                         <div className="space-y-2">

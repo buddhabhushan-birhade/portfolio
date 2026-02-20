@@ -133,7 +133,7 @@ import { Layers } from 'lucide-react';
 
 const Skills = ({ isMobile }) => {
     return (
-        <section id="skills" className="py-24 px-6 relative overflow-hidden bg-[#02040a]">
+        <section id="skills" className="py-24 px-6 relative overflow-hidden bg-[#02040a] premium-scroll-fix">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
@@ -164,7 +164,7 @@ const Skills = ({ isMobile }) => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             whileHover={isMobile ? {} : { y: -8, transition: { duration: 0.3 } }}
-                            className="glass-card p-6 border-white/5 relative group overflow-hidden bg-slate-900/40"
+                            className="glass-card p-6 border-white/5 relative group overflow-hidden bg-slate-900/40 gpu-accel"
                         >
                             {/* Individual Color Glow on Hover - Disable for mobile */}
                             {!isMobile && (

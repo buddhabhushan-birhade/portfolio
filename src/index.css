@@ -9,6 +9,18 @@
   --animate-glow: glow 2s ease-in-out infinite alternate;
 }
 
+/* Optimization Utilities */
+.gpu-accel {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.premium-scroll-fix {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
 @keyframes float {
 
   0%,
@@ -37,6 +49,8 @@ body {
   margin: 0;
   overflow-x: hidden;
   font-family: "Outfit", sans-serif;
+  overscroll-behavior: none;
+  /* Prevents rubber-banding/bounce on mobile */
 }
 
 .glass-card {
@@ -44,6 +58,8 @@ body {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
+  touch-action: manipulation;
+  /* Removes 300ms tap delay */
 }
 
 .neon-text {
@@ -74,5 +90,27 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
+/* Lenis Recommended CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

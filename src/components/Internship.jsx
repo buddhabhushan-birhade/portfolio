@@ -11,7 +11,7 @@ const Internship = ({ isMobile }) => {
     ];
 
     return (
-        <section id="internship" className="py-24 px-6 relative overflow-hidden">
+        <section id="internship" className="py-24 px-6 relative overflow-hidden premium-scroll-fix">
             {/* Background decorative elements */}
             {!isMobile && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-orange/5 blur-[120px] rounded-full -z-10" />
@@ -41,7 +41,7 @@ const Internship = ({ isMobile }) => {
                         initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="lg:col-span-3 space-y-8"
+                        className="lg:col-span-3 space-y-8 gpu-accel"
                     >
                         <div className="glass-card p-10 border-white/5 relative group overflow-hidden">
                             {/* Accent line */}

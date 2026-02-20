@@ -41,7 +41,7 @@ const projects = [
 
 const Projects = ({ onViewDemo, isMobile }) => {
     return (
-        <section id="projects" className="py-24 px-6 relative">
+        <section id="projects" className="py-24 px-6 relative premium-scroll-fix">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
@@ -71,13 +71,14 @@ const Projects = ({ onViewDemo, isMobile }) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="glass-card flex flex-col group overflow-hidden border-white/5 hover:border-brand-orange/20 transition-all duration-500 shadow-2xl"
+                            className="glass-card flex flex-col group overflow-hidden border-white/5 hover:border-brand-orange/20 transition-all duration-500 shadow-2xl gpu-accel"
                         >
                             {/* Project Image */}
                             <div className="relative h-64 overflow-hidden">
                                 <img
                                     src={project.image}
                                     alt={project.title}
+                                    loading="lazy"
                                     className={`w-full h-full object-cover transition-transform duration-700 brightness-75 group-hover:brightness-100 ${!isMobile ? 'group-hover:scale-110' : ''}`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background-deep via-transparent to-transparent opacity-60" />

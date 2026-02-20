@@ -27,7 +27,7 @@ const features = [
 
 const About = ({ isMobile }) => {
     return (
-        <section id="about" className="py-24 px-6 relative bg-slate-900/20">
+        <section id="about" className="py-24 px-6 relative bg-slate-900/20 premium-scroll-fix">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-20">
                     <motion.h2
@@ -55,7 +55,7 @@ const About = ({ isMobile }) => {
                         initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="lg:col-span-2 glass-card p-12 border-white/5 flex flex-col justify-center"
+                        className="lg:col-span-2 glass-card p-12 border-white/5 flex flex-col justify-center gpu-accel"
                     >
                         <h3 className="text-3xl font-black mb-8 text-white">Who I Am</h3>
                         <div className="space-y-6 text-white/60 text-lg leading-relaxed font-light">

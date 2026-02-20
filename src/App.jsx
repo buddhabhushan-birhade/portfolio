@@ -29,24 +29,29 @@ function App() {
 
         // Initialize Lenis for smooth scrolling
         const lenis = new Lenis({
-            duration: 1.5,
+            duration: isMobile ? 1.0 : 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 1.1,
-            touchMultiplier: 2,
+            wheelMultiplier: 1,
+            touchMultiplier: 2.5, // Increased for better mobile responsiveness
+            syncTouch: true, // Crucial for mobile smoothness
             infinite: false,
         });
 
+        let rafId;
         function raf(time) {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
             window.removeEventListener('resize', checkMobile);
             lenis.destroy();
+            cancelAnimationFrame(rafId);
         };
     }, []);
 

@@ -4,7 +4,7 @@ import { Github, Linkedin, Twitter, Mail, ArrowDown } from 'lucide-react';
 
 const Hero = ({ isMobile }) => {
     return (
-        <section className="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden grid-bg">
+        <section className="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden grid-bg premium-scroll-fix">
             {/* Decorative Blur Blobs */}
             {!isMobile && (
                 <>
@@ -19,7 +19,7 @@ const Hero = ({ isMobile }) => {
                     initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="z-10"
+                    className="z-10 gpu-accel"
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -91,6 +91,7 @@ const Hero = ({ isMobile }) => {
                             <img
                                 src="/myimg.jpeg"
                                 alt="Buddhabhushan Birhade"
+                                loading="lazy"
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background-deep to-transparent opacity-60" />
